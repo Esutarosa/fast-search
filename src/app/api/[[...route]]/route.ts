@@ -1,7 +1,8 @@
 import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
 import { env } from 'hono/adapter';
-import { Redis } from '@upstash/redis';
+import { Redis } from '@upstash/redis/cloudflare';
+import { cors } from 'hono/cors';
 
 export const runtime = 'edge';
 
@@ -12,6 +13,7 @@ type EnvConfig = {
   UPSTASH_REDIS_REST_TOKEN: string
 }
 
+app.use('/*', cors())
 app.get('/search', async (c) => {
   try {
     const { UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } = env<EnvConfig>(c)
@@ -34,7 +36,7 @@ app.get('/search', async (c) => {
     const rank = await redis.zrank('dishes', query)
 
     if (rank !== null && rank !== undefined) {
-      const dish = await redis.zrange<string[]>("dishes", rank, rank + 100)
+      const dish = await redis.zrange<string[]>('dishes', rank, rank + 100)
 
       for (const el of dish) {
         if (!el.startsWith(query)) break
