@@ -23,7 +23,7 @@ app.get('/search', async (c) => {
       token: UPSTASH_REDIS_REST_TOKEN
     })
 
-    const query = c.req.query("q")
+    const query = c.req.query('q')
 
     if (!query) return c.json(
       { message: 'Invalid search query' },
@@ -31,15 +31,15 @@ app.get('/search', async (c) => {
     )
 
     const res = []
-    const rank = await redis.zrank('Dishes', query)
+    const rank = await redis.zrank('dishes', query)
 
     if (rank !== null && rank !== undefined) {
-      const dish = await redis.zrange<string[]>("Dishes", rank, rank + 100)
+      const dish = await redis.zrange<string[]>("dishes", rank, rank + 100)
 
       for (const el of dish) {
         if (!el.startsWith(query)) break
 
-        if (el.endsWith('*')) res.push(el.slice(0, el.length - 1))
+        if (el.endsWith('*')) res.push(el.substring(0, el.length - 1))
       }
     }
 
