@@ -20,15 +20,23 @@ const Home = () => {
   }, [input])
 
   return (
-    <main>
-      <div>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="text-black"
-        />
+    <main className="h-screen w-screen grainy">
+      <div className="flex flex-col gap-6 items-center pt-32 duration-500 animate-in animate fade-in-5 slide-in-from-bottom-2.5'">
+        <h1 className='text-5xl tracking-tight font-bold'>SpeedSearch ⚡</h1>
+        <p className='text-zinc-600 text-lg max-w-prose text-center px-4'>
+          A high-performance API built with Hono, Next.js and Cloudflare. Type a query below and get your results in miliseconds.
+        </p>
+
+        <div className="max-w-md w-full">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="text-black"
+          />
+        </div>
       </div>
+
     </main>
   )
 }
