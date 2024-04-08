@@ -389,7 +389,7 @@ dishesList.forEach((item) => {
   const dishes: { score: 0; member: string }[] = []
 
   for (let i = 0; i <= dish.length; i++) {
-    dishes.push({ score: 0, member: dish.substring(0, i) })
+    dishes.push({ score: 0, member: dish.slice(0, i) })
   }
   dishes.push({ score: 0, member: dish + '*' })
 

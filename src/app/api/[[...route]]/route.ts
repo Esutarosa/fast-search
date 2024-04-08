@@ -39,7 +39,7 @@ app.get('/search', async (c) => {
       for (const el of dish) {
         if (!el.startsWith(query)) break
 
-        if (el.endsWith('*')) res.push(el.substring(0, el.length - 1))
+        if (el.endsWith('*')) res.push(el.slice(0, el.length - 1))
       }
     }
 

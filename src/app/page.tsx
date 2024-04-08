@@ -26,6 +26,7 @@ const Home = () => {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          className="text-black"
         />
       </div>
     </main>
